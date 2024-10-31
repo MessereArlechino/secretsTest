@@ -1,0 +1,26 @@
+name: Secrets Test
+
+on: push
+
+env:
+  COLLECTION: test/postman_collection.json
+  ENVIRONMENT: test/postman_environment.json
+
+jobs:
+  testSecrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: create-json
+        uses: jsdaniell/create-json@v1.2.3
+        with:
+          name: "postman_environment.json"
+          json: ${{secrets.PM_ENV}}
+  
+      
+      - uses: matt-ball/newman-action@master
+        with: 
+          collection: ${{env.COLLECTION}}
+          environment: postman_environment.json
+          
