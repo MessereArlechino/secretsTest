@@ -1,0 +1,19 @@
+name: Secrets Test
+
+on: push
+
+env:
+  COLLECTION: test/postman_collection.json
+  ENVIRONMENT: test/postman_environment.json
+
+jobs:
+  testSecrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: matt-ball/newman-action@master
+        with: 
+          collection: ${{env.COLLECTION}}
+          environment: ${{env.ENVIRONMENT}}
+          
