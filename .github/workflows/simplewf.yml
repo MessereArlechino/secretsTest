@@ -11,9 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: create-json
+        uses: jsdaniell/create-json@v1.2.3
+        with:
+          name: "postman_environment.json"
+          json: ${{secrets.PM_ENV}}
+  
       
       - uses: matt-ball/newman-action@master
         with: 
           collection: ${{env.COLLECTION}}
-          environment: ${{env.ENVIRONMENT}}
+          environment: postman_environment.json
           
